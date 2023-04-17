@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('pulling the source code') {
+            steps {
+                echo 'pulling changes from git '
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jacksontechtraining/piplinejavascript40000']])
+            }
+        }
+         stage('depndency fix') {
+            steps {
+                echo 'installing application dependency'
+                bat 'npm install'
+            }
+        }
+        stage('testing') {
+            steps {
+                bat 'npm test'
+            }
+        }
+    }
+}

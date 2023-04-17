@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('GIT') {
+            steps {
+                echo 'Hello World'
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jacksontechtraining/piplinepython40000']])
+            }
+        }
+         stage('dependency') {
+            steps {
+                echo 'installing dependency'
+                bat 'python -m pip install django'
+            }
+        }
+         stage('DB Changes') {
+            steps {
+                echo 'checking DB changes'
+                bat 'python manage.py migrate'
+            }
+        }
+         stage('Migrate DB changes') {
+            steps {
+                echo 'Migrating DB changes'
+                bat 'python manage.py makemigrations'
+            }
+        }
+         stage('Testing') {
+            steps {
+                 echo 'testing applicaiton'
+                bat 'python manage.py test'
+            }
+        }
+    }
+}
