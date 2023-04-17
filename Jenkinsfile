@@ -2,13 +2,13 @@ pipeline{
     agent any
 
     stages{
-        stage('check java version'){
-            steps{
-                echo 'checking the java version'
-                bat 'java --version'    
-            }
+        // stage('check java version'){
+        //     steps{
+        //         echo 'checking the java version'
+        //         bat 'java --version'    
+        //     }
                     
-        }
+        // }
         stage('checkout from git'){
             steps{
                 echo 'downloading source code'
